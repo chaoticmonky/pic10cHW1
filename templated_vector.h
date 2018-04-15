@@ -177,6 +177,12 @@ namespace Pic10b{
         }
     }
 
+    /**
+    Templated unitary sum operator adds a vector to a given vector
+    @tparam T the type of the vector
+    @param right is the vector to be added
+    @return copy of the sum of the vector
+    */
     template<typename T>
     vector<T> vector<T>::operator+=(vector<T>& right){
         size_t c = (this->size()>right.size())? right.size(): this->size();//the bigger vector of the two is the limit of the for loop 
@@ -199,26 +205,139 @@ std::ostream& operator<<( std::ostream& out, const Pic10b::vector<T>& v ){
     return out;
 }
 
+/**
+Template operator multiplies all elements of vector by a factor
+@tparam T the type of the vector
+@param mult the multiplication factor
+@param v the vector
+@return the vector multiplied by the factor
+*/
+template<typename T>
+Pic10b::vector<T> operator *( int mult, Pic10b::vector<T> v ){
+    for (size_t i = 0; i < v.size(); ++i)
+    {
+        v[i] = v[i] * mult;
+    }
+    return v;
+}
 
-// Pic10b::vector operator *( int mult, Pic10b::vector<T> v ){
-//     for (size_t i = 0; i < v.size(); ++i)
-//     {
-//         v[i] = v[i] * mult;
-//     }
-//     return v;
-// }
+/**
+Template operator multiplies all elements of vector by a factor
+@tparam T the type of the vector
+@param mult the multiplication factor
+@param v the vector
+@return the vector multiplied by the factor
+*/
 
-// Pic10b::vector operator *( Pic10b::vector<T> v, int mult ){
-//     for (size_t i = 0; i < v.size(); ++i)
-//     {
-//         v[i] = v[i] * mult;
-//     }
-//     return v;
-// }
+template<typename T>
+Pic10b::vector<T> operator *( Pic10b::vector<T> v, int mult ){
+    for (size_t i = 0; i < v.size(); ++i)
+    {
+        v[i] = v[i] * mult;
+    }
+    return v;
+}
 
-// Pic10b::vector operator +( Pic10b::vector<T> left, Pic10b::vector<T>& right ){
-//     return left+=right;
-// }
+/**
+Template operator returns the dot product between two vectors
+@tparam T the type of the arguments
+@param left the first vector
+@param right the second vector
+@return the dot product
+*/
+template<typename T>
+T operator *( const Pic10b::vector<T>& left, const Pic10b::vector<T>& right ){
+    T product=0;
+    for (size_t i = 0; i < left.size(); ++i)
+    {
+        product += left[i] * right[i];
+    }
+    return product;
+}
+
+/**
+Template operator adds two vectors together
+@tparam T the type of the vector
+@param left the first vector
+@param right the second vector
+@return the sum of two vectors
+*/
+template<typename T>
+Pic10b::vector<T> operator +( Pic10b::vector<T> left, Pic10b::vector<T>& right ){
+    return left+=right;
+}
+
+/**
+Templated operator compares two vectors together
+@tparam T the type of the vector
+@param left the first vector
+@param right the second vector
+@return boolean true if left is smaller than right
+*/
+template<typename T>
+bool operator < (const Pic10b::vector<T>& left, const Pic10b::vector<T>& right){
+    return (left*left < right*right)? true:false;
+}
+
+/**
+Templated operator compares two vectors together
+@tparam T the type of the vector
+@param left the first vector
+@param right the second vector
+@return boolean true if left is bigger than right
+*/
+template<typename T>
+bool operator > (const Pic10b::vector<T>& left, const Pic10b::vector<T>& right){
+    return right < left;
+}
+
+/**
+Templated operator compares two vectors together
+@tparam T the type of the vector
+@param left the first vector
+@param right the second vector
+@return boolean true if left is equal to right
+*/
+template<typename T>
+bool operator == (const Pic10b::vector<T>& left, const Pic10b::vector<T>& right){
+    return (!(left < right) && !(right < left));
+}
+
+/**
+Templated operator compares two vectors together
+@tparam T the type of the vector
+@param left the first vector
+@param right the second vector
+@return boolean true if left is not equal to right
+*/
+template<typename T>
+bool operator != (const Pic10b::vector<T>& left, const Pic10b::vector<T>& right){
+    return !(left == right);
+}
+
+/**
+Templated operator compares two vectors together
+@tparam T the type of the vector
+@param left the first vector
+@param right the second vector
+@return boolean true if left is less than or equal to right
+*/
+template<typename T>
+bool operator <= (const Pic10b::vector<T>& left, const Pic10b::vector<T>& right){
+    return (left < right) || (left == right);
+}
+
+/**
+Templated operator compares two vectors together
+@tparam T the type of the vector
+@param left the first vector
+@param right the second vector
+@return boolean true if left is greater than or equal to right
+*/
+template<typename T>
+bool operator >= (const Pic10b::vector<T>& left, const Pic10b::vector<T>& right){
+    return (right < left) || (left == right);
+}
 
 template<typename T>
 void print_vector( const Pic10b::vector<T>& v ){
