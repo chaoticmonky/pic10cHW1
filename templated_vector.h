@@ -200,21 +200,11 @@ namespace Pic10b{
 /** ************************ OTHER FUNCTIONS ************************ **/
 template<typename T>
 std::ostream& operator<<( std::ostream& out, const Pic10b::vector<T>& v ){
-    out << "{";
     for ( size_t i = 0 ; i < v.size() ; ++i )
         out << v[i] << ' ';
-    out << "}";
     return out;
 }
 
-template <>
-std::ostream& operator<<( std::ostream& out, const Pic10b::vector<std::string>& str){
-    out << "[";
-    for ( size_t i = 0 ; i < str.size() ; ++i )
-        out << str[i] << ' ';
-    out << "]";
-    return out;
-}
 /**
 Template operator multiplies all elements of vector by a factor
 @tparam T the type of the vector
@@ -249,36 +239,6 @@ Pic10b::vector<T> operator *( Pic10b::vector<T> v, int mult ){
 }
 
 /**
-operator concatenates a string as a prefix to all the elements in the vector
-@param mult the string to be concatenated
-@param v the std::string vector
-@return the vector with elements concatenated with 
-*/
-
-Pic10b::vector<std::string> operator *( std::string mult, Pic10b::vector<std::string> v ){
-    for (size_t i = 0; i < v.size(); ++i)
-    {
-        v[i] = mult + " " + v[i];
-    }
-    return v;
-}
-
-/**
-operator concatenates a string as a suffix to all the elements in the vector
-@param mult the string to be concatenated
-@param v the std::string vector
-@return the vector multiplied by the factor
-*/
-
-Pic10b::vector<std::string> operator *( Pic10b::vector<std::string> v, std::string mult ){
-    for (size_t i = 0; i < v.size(); ++i)
-    {
-        v[i] = v[i] + " " + mult;
-    }
-    return v;
-}
-
-/**
 Template operator returns the dot product between two vectors
 @tparam T the type of the arguments
 @param left the first vector
@@ -295,7 +255,13 @@ T operator *( const Pic10b::vector<T>& left, const Pic10b::vector<T>& right ){
     return product;
 }
 
-
+/**
+Template operator adds two vectors together
+@tparam T the type of the vector
+@param left the first vector
+@param right the second vector
+@return the sum of two vectors
+*/
 template<typename T>
 Pic10b::vector<T> operator +( Pic10b::vector<T> left, Pic10b::vector<T>& right ){
     return left+=right;
@@ -337,7 +303,6 @@ bool operator == (const Pic10b::vector<T>& left, const Pic10b::vector<T>& right)
     return (!(left < right) && !(right < left));
 }
 
-
 /**
 Templated operator compares two vectors together
 @tparam T the type of the vector
@@ -372,36 +337,6 @@ Templated operator compares two vectors together
 template<typename T>
 bool operator >= (const Pic10b::vector<T>& left, const Pic10b::vector<T>& right){
     return (right < left) || (left == right);
-}
-
-/**
-operator compares two std::string vectors together
-@param left the first vector
-@param right the second vector
-@return boolean true if left is equal to right
-*/
-
-bool operator == (const Pic10b::vector<std::string>& left, const Pic10b::vector<std::string>& right){
-    for (size_t i = 0; i < left.size(); ++i)
-    {
-        if (left[i] != right[i])
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-/**
-operator compares two std::string vectors together
-@param left the first vector
-@param right the second vector
-@return boolean true if left is not equal to right
-*/
-
-bool operator != (const Pic10b::vector<std::string>& left, const Pic10b::vector<std::string>& right){
-    return !(left == right);
 }
 
 template<typename T>
