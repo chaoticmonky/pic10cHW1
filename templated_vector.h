@@ -255,13 +255,7 @@ T operator *( const Pic10b::vector<T>& left, const Pic10b::vector<T>& right ){
     return product;
 }
 
-/**
-Template operator adds two vectors together
-@tparam T the type of the vector
-@param left the first vector
-@param right the second vector
-@return the sum of two vectors
-*/
+
 template<typename T>
 Pic10b::vector<T> operator +( Pic10b::vector<T> left, Pic10b::vector<T>& right ){
     return left+=right;
